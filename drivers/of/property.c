@@ -1304,8 +1304,20 @@ static struct device_node *parse_remote_endpoint(struct device_node *np,
 						 int index)
 {
 	/* Return NULL for index > 0 to signify end of remote-endpoints. */
-	if (index > 0 || strcmp(prop_name, "remote-endpoint"))
+	if (index > 0 || strcmp(prop_name, "remote-endpoint")) {
+		pr_emerg("thefossguy: --------------------------------------------------------------------------------\n");
+		pr_emerg("thefossguy: index: %d\n", index);
+		pr_emerg("thefossguy: prop_name: %s\n", prop_name);
+		pr_emerg("thefossguy: device_node: name: %s\n", np->name);
+		pr_emerg("thefossguy: device_node: full_name: %s\n", np->full_name);
+		pr_emerg("thefossguy: device_node: parent: name: %s\n",      np->parent->full_name);
+		pr_emerg("thefossguy: device_node: parent: full_name: %s\n", np->parent->full_name);
+		pr_emerg("thefossguy: device_node: sibling: name: %s\n",      np->sibling->full_name);
+		pr_emerg("thefossguy: device_node: sibling: full_name: %s\n", np->sibling->full_name);
+		pr_emerg("thefossguy: device_node: kobj: name: %s\n", np->kobj.name);
+		pr_emerg("thefossguy: --------------------------------------------------------------------------------\n");
 		return NULL;
+	}
 
 	return of_graph_get_remote_port_parent(np);
 }
